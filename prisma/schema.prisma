@@ -1,0 +1,62 @@
+// This is your Prisma schema file,
+// learn more about it in the docs: https://pris.ly/d/prisma-schema
+
+// Looking for ways to speed up your queries, or scale easily with your serverless or edge functions?
+// Try Prisma Accelerate: https://pris.ly/cli/accelerate-init
+
+generator client {
+  provider = "prisma-client-js"
+}
+
+datasource db {
+  provider = "postgresql"
+  url      = env("DATABASE_URL")
+}
+
+model UserLoginData {
+  id               String    @id @default(uuid())
+  FirstName        String
+  LastName         String
+  Email            String    @unique
+  Password         String
+  BirthDate        DateTime
+  Gender           String
+  PhoneNumber      String
+  CreatedAt        DateTime?
+  RenewedAt        DateTime?
+  AccountActivated Boolean   @default(false)
+  RenewalCount     Int       @default(0)
+}
+
+model UserMedicine {
+  id             String    @id @default(uuid())
+  UserId         String
+  BrandName      String
+  ScientificName String?
+  PurchaseDate   DateTime?
+  ExpirationDate DateTime?
+  PurchasePrice  Int?
+  SellingPrice   Int?
+  Quantity       Int?
+  Location       String?
+  Tags           String?
+  Group          String    @default("Default")
+
+  @@unique([id, UserId])
+}
+
+model UserChat {
+  id        String   @id @default(uuid())
+  UserId    String
+  Name      String
+  Content   String
+  createdAt DateTime @default(now())
+  UpdatedAt DateTime @updatedAt
+}
+
+model UserMemory {
+  id        String   @id @default(uuid())
+  UserId    String   @unique
+  Summary   String
+  UpdatedAt DateTime @updatedAt
+}
