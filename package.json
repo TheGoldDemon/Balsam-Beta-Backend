@@ -20,6 +20,9 @@
   },
   "scripts": {
     "start": "node ExpressRouter.js",
+    "prisma:generate": "prisma generate",
+    "postinstall": "prisma generate",
     "dev": "nodemon ExpressRouter.js"
   }
 }
+
